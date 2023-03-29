@@ -59,7 +59,10 @@
     <br />
 <p>
     
-    <asp:Button ID="btnMostrarDatos" runat="server" OnClick="btnMostrarDatos_Click" Text="Mostrar Datos" /><asp:Button runat="server" Text="Guardar" ID="btnGuardar" OnClick="btnGuardar_Click"></asp:Button>
+    <asp:Button ID="btnMostrarDatos" runat="server" OnClick="btnMostrarDatos_Click" Text="Mostrar Datos" style="width: 124px" />
+    <asp:Button ID="btnEliminar" runat="server" OnClick="btnEliminar_Click" Text="Eliminar" OnClientClick="return confirm ('¿Está seguro que desea eliminar?');" />
+    <asp:Button runat="server" Text="Guardar" ID="btnGuardar" OnClick="btnGuardar_Click"></asp:Button>
+    <asp:Button ID="btnActualizar" runat="server" OnClick="btnActualizar_Click" Text="Actualizar" />
 </p>
 <asp:GridView ID="dgvClientes" runat="server" OnSelectedIndexChanged="dgvClientes_SelectedIndexChanged">
     <Columns>
