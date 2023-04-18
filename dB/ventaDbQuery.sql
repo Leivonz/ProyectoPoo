@@ -2,11 +2,13 @@ use ventaDb
 
 create table cliente (
 id_cliente int primary key identity (1,1) not null,
+id_comuna int not null,
 nombre varchar(100) not null,
 contrasena varchar(50) not null,
 correo varchar(50) not null,
 numero varchar(20) not null,
-direccion varchar(100) not null
+direccion varchar(100) not null,
+foreign key (id_comuna) references Comunas (id_comuna) 
 )
 
 drop table cliente
@@ -44,6 +46,7 @@ stock int not null
 foreign key (id_tipo) references tipo_album(id_tipo),
 foreign key (id_genero) references genero_album(id_genero)
 )
+drop table album_musica
 
 create table proveedor (
 rut varchar(15) primary key not null,
@@ -78,6 +81,15 @@ create table Region (
 id_region int primary key not null,
 nombre varchar(max)
 )
+
+create table usuario_sv (
+id_usuario int primary key identity (1,1) not null,
+nombre_usuario varchar(100) not null,
+contrasena_usuario varchar(100) not null
+)
+drop table usuario_sv
+
+INSERT INTO usuario_sv (nombre_usuario, contrasena_usuario) VALUES ('admin','123')
 
 INSERT INTO Region (id_region,nombre) VALUES (1, 'Arica y Parinacota');
 INSERT INTO Region (id_region,nombre) VALUES (2, 'Tarapacá');
