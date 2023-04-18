@@ -1,7 +1,7 @@
 use ventaDb
 
 create table cliente (
-id_cliente int primary key not null,
+id_cliente int primary key identity (1,1) not null,
 nombre varchar(100) not null,
 contrasena varchar(50) not null,
 correo varchar(50) not null,
@@ -9,6 +9,7 @@ numero varchar(20) not null,
 direccion varchar(100) not null
 )
 
+drop table cliente
 
 create table venta (
 nboleta int not null,
@@ -19,6 +20,7 @@ fecha date not null,
 foreign key (id_album) references album_musica(id_album),
 foreign key (id_cliente) references cliente(id_cliente)
 )
+drop table venta
 
 create table tipo_album (
 id_tipo int primary key not null,
@@ -448,3 +450,5 @@ INSERT INTO Comunas (id_region,nombre) VALUES (16,'Peñaflor');
 
 
 drop table compra
+
+select * from cliente
