@@ -51,7 +51,7 @@ correo varchar(50) not null,
 numero varchar(20) not null
 )
 
-drop table proveedor
+
 
 create table compra (
 factura int not null,
@@ -70,12 +70,15 @@ nombre varchar(max) not null,
 foreign key (id_region) references Region (id_region)
 )
 
-drop table Comunas
+
 
 create table Region (
 id_region int primary key not null,
 nombre varchar(max)
 )
+
+drop table proveedor
+drop table Comunas
 
 INSERT INTO Region (id_region,nombre) VALUES (1, 'Arica y Parinacota');
 INSERT INTO Region (id_region,nombre) VALUES (2, 'Tarapacá');
