@@ -1,14 +1,17 @@
 use ventaDb
 
 create table cliente (
-id_cliente int primary key not null,
+id_cliente int primary key identity (1,1) not null,
+id_comuna int not null,
 nombre varchar(100) not null,
 contrasena varchar(50) not null,
 correo varchar(50) not null,
 numero varchar(20) not null,
-direccion varchar(100) not null
+direccion varchar(100) not null,
+foreign key (id_comuna) references Comunas (id_comuna) 
 )
 
+drop table cliente
 
 create table venta (
 nboleta int not null,
@@ -19,6 +22,7 @@ fecha date not null,
 foreign key (id_album) references album_musica(id_album),
 foreign key (id_cliente) references cliente(id_cliente)
 )
+drop table venta
 
 create table tipo_album (
 id_tipo int primary key not null,
@@ -42,6 +46,7 @@ stock int not null
 foreign key (id_tipo) references tipo_album(id_tipo),
 foreign key (id_genero) references genero_album(id_genero)
 )
+drop table album_musica
 
 create table proveedor (
 rut varchar(15) primary key not null,
@@ -77,8 +82,19 @@ id_region int primary key not null,
 nombre varchar(max)
 )
 
+<<<<<<< HEAD
 drop table proveedor
 drop table Comunas
+=======
+create table usuario_sv (
+id_usuario int primary key identity (1,1) not null,
+nombre_usuario varchar(100) not null,
+contrasena_usuario varchar(100) not null
+)
+drop table usuario_sv
+
+INSERT INTO usuario_sv (nombre_usuario, contrasena_usuario) VALUES ('admin','123')
+>>>>>>> f8f6ee1df39b38ed7bf91f2f9f7afe92442f000f
 
 INSERT INTO Region (id_region,nombre) VALUES (1, 'Arica y Parinacota');
 INSERT INTO Region (id_region,nombre) VALUES (2, 'Tarapacá');
@@ -451,3 +467,5 @@ INSERT INTO Comunas (id_region,nombre) VALUES (16,'Peñaflor');
 
 
 drop table compra
+
+select * from cliente

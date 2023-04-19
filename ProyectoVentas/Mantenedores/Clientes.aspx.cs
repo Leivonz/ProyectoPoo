@@ -21,9 +21,9 @@ namespace ProyectoVentas
             mostarDatos();
             if (!IsPostBack)
             {
-                llenaDrop();
+                //llenaDrop();
             }
-            
+
         }
 
         protected void btnMostrarDatos_Click(object sender, EventArgs e)
@@ -66,38 +66,47 @@ namespace ProyectoVentas
 
         void Guardar()
         {
-            SqlConnection connection = new SqlConnection(connectionString);
+            try
+            {
+                SqlConnection connection = new SqlConnection(connectionString);
 
-            SQL = "INSERT INTO [cliente] ([id_cliente] ,[nombre] ,[contrasena] ,[correo], [numero] ,[direccion]) values (@IdCliente, @Nombre, @Contrasena, @Correo, @Numero, @Direccion)";
-            SqlCommand command = new SqlCommand(SQL, connection);
+                SQL = "INSERT INTO [cliente] ([nombre] ,[contrasena] ,[correo], [numero] ,[direccion]) values (@Nombre, @Contrasena, @Correo, @Numero, @Direccion)";
+                SqlCommand command = new SqlCommand(SQL, connection);
 
-            command.Parameters.Add("@IdCliente", SqlDbType.VarChar).Value = txtIdCliente.Text;
-            command.Parameters.Add("@Nombre", SqlDbType.VarChar).Value = txtNombre.Text;
-            command.Parameters.Add("@Contrasena", SqlDbType.VarChar).Value = txtContrasena.Text;
-            command.Parameters.Add("@Correo", SqlDbType.VarChar).Value = txtCorreo.Text;
-            command.Parameters.Add("@Numero", SqlDbType.VarChar).Value = txtNumero.Text;
-            command.Parameters.Add("@Direccion", SqlDbType.VarChar).Value = txtDireccion.Text;
+                command.Parameters.Add("@Nombre", SqlDbType.VarChar).Value = txtNombre.Text;
+                command.Parameters.Add("@Contrasena", SqlDbType.VarChar).Value = txtContrasena.Text;
+                command.Parameters.Add("@Correo", SqlDbType.VarChar).Value = txtCorreo.Text;
+                command.Parameters.Add("@Numero", SqlDbType.VarChar).Value = txtNumero.Text;
+                command.Parameters.Add("@Direccion", SqlDbType.VarChar).Value = txtDireccion.Text;
 
-            connection.Open();
-            command.ExecuteNonQuery();
-            connection.Close();
+                connection.Open();
+                command.ExecuteNonQuery();
+                connection.Close();
+
+                Mensaje.Text = "Registro guardado correctamente";
+            }
+            catch (Exception ex)
+            {
+                Mensaje.Text = SQL + ex;
+            }
+
         }
 
-        protected void btnGuardar_Click(object sender, EventArgs e)
+        protected void btnGuardar_Click(object sender, EventArgs e)//guardar btn
         {
             Guardar();
             mostarDatos();
             Limpiar();
         }
 
-        protected void btnEliminar_Click(object sender, EventArgs e)
+        protected void btnEliminar_Click(object sender, EventArgs e)//eliminar btn
         {
             Eliminar();
             mostarDatos();
             Limpiar();
         }
 
-        void Eliminar()
+        void Eliminar()//delete sql
         {
 
             try
@@ -139,9 +148,9 @@ namespace ProyectoVentas
             }
 
         }
-        void Actualizar()
+        void Actualizar()//update sql 
         {
-            SQL = "update cliente set id_cliente = @IdCliente, nombre = @Nombre, contrasena = @Contrasena, correo = @Correo, numero = @Numero, direccion = @Direccion where id_cliente = @IdCliente ";
+            SQL = "update cliente set nombre = @Nombre, contrasena = @Contrasena, correo = @Correo, numero = @Numero, direccion = @Direccion where id_cliente = @IdCliente ";
             SqlConnection connection = new SqlConnection(connectionString);
             SqlCommand command = new SqlCommand(SQL, connection);
 
@@ -166,25 +175,25 @@ namespace ProyectoVentas
             connection.Close();
 
         }
-        void llenaDrop()
-        {
-            SQL = "SELECT [id_cliente], [nombre] from [cliente]";
+        //void llenaDrop()
+        //{
+        //    SQL = "SELECT [id_cliente], [nombre] from [cliente]";
 
-            SqlConnection connection = new SqlConnection(connectionString);
-            connection.Open();
-            SqlCommand command = new SqlCommand(SQL, connection);
+        //    SqlConnection connection = new SqlConnection(connectionString);
+        //    connection.Open();
+        //    SqlCommand command = new SqlCommand(SQL, connection);
 
-            SqlDataReader reader = command.ExecuteReader();
-            ddUsuarios.DataSource = reader;
-            ddUsuarios.DataTextField = "nombre";
-            ddUsuarios.DataValueField = "id_cliente";
-            ddUsuarios.DataBind();
+        //    SqlDataReader reader = command.ExecuteReader();
+        //    ddUsuarios.DataSource = reader;
+        //    ddUsuarios.DataTextField = "nombre";
+        //    ddUsuarios.DataValueField = "id_cliente";
+        //    ddUsuarios.DataBind();
 
-            reader.Close();
-            command.Dispose();
-            connection.Close();
-        }
-        void Limpiar()
+        //    reader.Close();
+        //    command.Dispose();
+        //    connection.Close();
+        //}
+        void Limpiar()//limpia los campos
         {
             txtIdCliente.Text = "";
             txtNombre.Text = "";
